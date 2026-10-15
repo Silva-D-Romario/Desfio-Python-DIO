@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "desfio-python-dio"
+version = "1.0.0"
+description = "API bancária assíncrona desenvolvida como evolução de um desafio da Formação Python Backend Developer da DIO."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Romário Silva" }]
+dependencies = [
+  "aiosqlite>=0.20,<1",
+  "email-validator>=2.2,<3",
+  "fastapi>=0.115,<1",
+  "pydantic-settings>=2.6,<3",
+  "PyJWT>=2.9,<3",
+  "pwdlib[argon2]>=0.2,<1",
+  "python-multipart>=0.0.12,<1",
+  "sqlalchemy[asyncio]>=2.0,<3",
+  "uvicorn[standard]>=0.32,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.27,<1",
+  "pytest>=8.3,<9",
+  "pytest-cov>=6,<7",
+  "ruff>=0.8,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bank_api"]
+
+[tool.pytest.ini_options]
+addopts = "-q --cov=bank_api --cov-report=term-missing --cov-fail-under=85"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
