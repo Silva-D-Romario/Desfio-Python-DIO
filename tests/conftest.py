@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 TEST_DB = Path("/tmp/desfio-python-dio-test.db")
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{TEST_DB}"
-os.environ["JWT_SECRET"] = "test-secret"
+os.environ["JWT_SECRET"] = "test-secret-with-at-least-32-bytes"
 
 from bank_api.database import Base, engine  # noqa: E402
 from bank_api.main import app  # noqa: E402
@@ -51,4 +51,3 @@ def register_and_login(
     assert token_response.status_code == 200
     token = token_response.json()["access_token"]
     return response.json(), {"Authorization": f"Bearer {token}"}
-
